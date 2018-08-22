@@ -1,0 +1,50 @@
+ 1773  head
+ 1774  man -h | head
+ 1775  ls
+ 1776* cd ../
+ 1777* ls
+ 1778* cd ../
+ 1779* ls
+ 1780* cd ../
+ 1781* ls
+ 1782* ls | sort
+ 1783* ls | sort -r
+ 1784  jobs
+ 1785  gedit &
+ 1786  jobs
+ 1787  fg
+ 1788  ls /usr/bin/ | grep gcc | sort -r >ex1.txt
+ 1789  ls
+ 1790  cat ex1.txt
+ 1791  ls /usr/bin/ | grep gcc | sort -r 
+ 1792  ls /usr/bin/ | grep gcc 
+ 1793  ls /usr/bin/ | grep gcc | sort
+ 1794  history > ex2.txt
+ 1795  history
+ 1796  cat ex2.txt
+ 1797  ls
+ 1798  cd ./ex2.txt
+ 1799  vim ./ex2.txt
+ 1800  ls
+ 1801  touch ex3.sh
+ 1802  vim ex3.sh
+ 1803  sh ex3.sh
+ 1804  gedit main.c
+ 1805  touch main.c
+ 1806  vim main.c
+ 1807  gcc main.c -o ex4
+ 1808  vim main.c
+ 1809  gcc main.c -o ex4
+ 1810  /ex4
+ 1811  ./ex4
+ 1812  git status
+ 1813  git add .
+ 1814  git status
+ 1815  git commit -am "+ week 1"
+ 1816  cat ex2.txt
+ 1817  ls
+ 1818  tail
+ 1819  man tail
+ 1820  ls
+ 1821  history | tail 50 > ex2.txt
+ 1822  man tail
