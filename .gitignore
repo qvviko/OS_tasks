@@ -4,3 +4,9 @@
 *.iws
 .idea
 out
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf

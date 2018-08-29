@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
         if (n <= 0) {
             printf("Invalid number. Must be greater then zero\n");
         } else {
-            char *string = malloc(sizeof(char) * (2 * n * n + 1));
+            char *string = malloc(sizeof(char) * (2 * n + 1));
             for (int j = 1; j <= n; ++j) {
                 int rqr = ((2 * n - 1) - (2 * j - 1)) / 2;
                 int i = (j + 1) * (2 * n);
@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
                 for (; i < 2 * n - 1; ++i) {
                     string[i] = ' ';
                 }
+                string[i] = '\0';
                 printf("%s\n", string);
             }
             free(string);
