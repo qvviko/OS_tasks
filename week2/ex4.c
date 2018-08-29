@@ -11,9 +11,9 @@ void swap(int *n1, int *n2) {
 
 int main(void) {
     int n1, n2;
-    printf("Enter first integer:");
+    printf("Enter first integer: ");
     scanf("%i", &n1);
-    printf("Enter second integer:");
+    printf("Enter second integer: ");
     scanf("%i", &n2);
     swap(&n1, &n2);
     printf("first: %d, second: %d\n", n1, n2);

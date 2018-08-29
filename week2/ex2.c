@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define STRING_SIZE 256
+
 int main(void) {
-    char *string = malloc(sizeof(char) * 100);
-    char *reverse_string = malloc(sizeof(char) * 100);
-    printf("Enter the string with size no more then 100: ");
+    char *string = malloc(sizeof(char) * STRING_SIZE);
+    char *reverse_string = malloc(sizeof(char) * STRING_SIZE);
+    printf("Enter the string with size no more then %d: ", STRING_SIZE);
     scanf("%s", string);
     int i = 0, size_of_str = (int) strlen(string);
     while (string[i] != '\0') {
