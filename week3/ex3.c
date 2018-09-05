@@ -10,11 +10,11 @@ typedef struct LinkedList {
     Node *head;
 } LinkedList;
 
-void insert_node(LinkedList *list, int data, int index);
+int insert_node(LinkedList *list, int data, int index);
 
 LinkedList *create_linked_list();
 
-void delete_node(LinkedList *list, int index);
+int delete_node(LinkedList *list, int index);
 
 Node *create_node(int data);
 
@@ -47,8 +47,12 @@ void print_list(LinkedList *list) {
     }
 }
 
-void insert_node(LinkedList *list, int data, int index) {
+int insert_node(LinkedList *list, int data, int index) {
     // Will insert in the index position, or in the end, if index is bigger then the length of the array
+    if (index < 0) {
+        printf("Error. Index is negative\n");
+        return -1;
+    }
     Node *node = create_node(data);
 
     if (list->head == NULL) {
@@ -72,12 +76,18 @@ void insert_node(LinkedList *list, int data, int index) {
             previous->next = node;
         }
     }
+    return 0;
 }
 
-void delete_node(LinkedList *list, int index) {
+int delete_node(LinkedList *list, int index) {
     //Delete node at index, if index > length do nothing
+    if (index < 0) {
+        printf("Error. Index is negative\n");
+        return -1;
+    }
     if (list->head == NULL) {
         printf("Error. List is empty\n");
+        return -1;
     } else {
         Node *current = list->head;
         Node *previous = NULL;
@@ -96,10 +106,11 @@ void delete_node(LinkedList *list, int index) {
             free(current);
         } else {
             printf("Error. Index out of range.\n");
+            return -1;
         }
 
     }
-
+    return 0;
 }
 
 int main() {
