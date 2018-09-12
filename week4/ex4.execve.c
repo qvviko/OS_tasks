@@ -38,7 +38,7 @@ char *receive_line() {
 
 
 char **split_line(const char *inp) {
-    char **outp = malloc(sizeof(char) * CMD_MAX_ARG_COUNT);
+    char **outp = malloc(sizeof(char *) * CMD_MAX_ARG_COUNT);
 
     if (!outp) {
         fprintf(stderr, "Allocation error, not enough memory\n");
@@ -69,7 +69,7 @@ char **split_line(const char *inp) {
 
         if (args_pos >= args_size) {
             args_count += CMD_MAX_ARG_COUNT;
-            outp = realloc(outp, sizeof(char) * args_count);
+            outp = realloc(outp, sizeof(char *) * args_count);
             if (!outp) {
                 fprintf(stderr, "Allocation error, not enough memory\n");
                 exit(EXIT_FAILURE);
@@ -96,6 +96,9 @@ int execute(char **args) {
     if (args[i - 1][0] == '&') {
         is_background = 1;
         args[i - 1] = NULL;
+    }
+    if (strcmp(args[0], "exit") == 0) {
+        exit(EXIT_SUCCESS);
     }
     pid = fork();
     if (pid == 0) {
