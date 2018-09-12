@@ -1,3 +1,7 @@
+/*
+ * This is a shell that can do almost anything real shell can do, using function system.
+ * In ex4.execve I've done the task using execve and forks, but it's more simple than this one
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
