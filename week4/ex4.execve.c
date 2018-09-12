@@ -109,7 +109,9 @@ int execute(char **args) {
         if (is_background) {
             fprintf(stdout, "Jobs %s is running in background\n", args[0]);
         } else {
-            waitpid(pid, &status, WUNTRACED);
+            do {
+                waitpid(pid, &status, WUNTRACED);
+            } while (!WIFEXITED(status) && !WIFSIGNALED(status));
         }
     }
     return 1;
