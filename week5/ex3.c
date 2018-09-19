@@ -27,7 +27,6 @@ void *producer(void *id) {
         }
         count++;
         printf("count increased %d\n", count);
-
         if (count == 1) wakeup_thread((void *) 1);
     }
 }
@@ -53,17 +52,19 @@ void *sleep_thread(void) {
 void *wakeup_thread(void *id) {
     if ((long) id == 0) {
         printf("Continue %d\n", 0);
-        pthread_kill(pr_cons[0], SIGCONT);
+        printf("%d\n", pthread_kill(pr_cons[0], SIGCONT));
     } else {
         printf("Continue %d\n", 1);
-        pthread_kill(pr_cons[1], SIGCONT);
+        printf("%d\n", pthread_kill(pr_cons[1], SIGCONT));
     }
 }
 
 int main(void) {
     pthread_create(pr_cons, NULL, producer, NULL);
     pthread_create(pr_cons + 1, NULL, consumer, NULL);
-
-    pthread_join(pr_cons[0], NULL);
-    pthread_join(pr_cons[1], NULL);
+    while (TRUE){
+        //Wait until race begins...
+    }
+//    pthread_join(pr_cons[0], NULL);
+//    pthread_join(pr_cons[1], NULL);
 }
