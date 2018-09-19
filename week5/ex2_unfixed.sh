@@ -1,10 +1,13 @@
 #!/bin/bash
-rm ex2_unfixed.txt
-1 > ex2_unfixed.txt
-while [ true ]
+#if [ -e ex2_unfixed.txt ]; then
+#   rm ex2_unfixed.txt
+#fi
+#echo "1" > ex2_unfixed.txt
+max=1000
+for i in `seq 2 $max`
 do
 # This is critical region because you access the file and then write it
-    read_line=$(tail -n 1 ex2.txt)
+    read_line=$(tail -n 1 ex2_unfixed.txt)
     read_line=$read_line+1
-    echo "$((read_line))" >> ex2.txt
+    echo "$((read_line))" >> ex2_unfixed.txt
 done
