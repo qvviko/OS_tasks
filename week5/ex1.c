@@ -5,19 +5,20 @@
 #define N_THREADS 10
 
 void *print_thread(void *id) {
-    printf("I'm thread №%d\n", (int) id);
+    printf("I'm thread №%ld\n", (long) id);
     pthread_exit(NULL);
 }
 
 int main(int argc, char *argv[]) {
     pthread_t threads[N_THREADS];
-    int status, i;
+    int status;
+    long i;
     printf("Main program begins parallel case\n");
     for (i = 0; i < N_THREADS; i++) {
         printf("Main program creates thread  №%d\n", i);
         status = pthread_create(&threads[i], NULL, print_thread, (void *) i);
         if (status != 0) {
-            exit(EXIT_FAILURE);
+            exit(status);
         }
     }
     // Wait until previous threads are finished
