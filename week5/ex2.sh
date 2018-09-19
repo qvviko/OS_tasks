@@ -1,9 +1,9 @@
 #!/bin/bash
-#if [ -e ex2_unfixed.txt ]; then
-#   rm ex2.txt
-#fi
-#echo "1" > ex2.txt
-max=10000
+# Note that it will won't print exactly 2000 because next line basically clears file
+# (consistency can be checked using line count (wc -l)
+exec 2> /dev/null
+echo "1" > ex2.txt
+max=1000
 
 for i in `seq 2 $max`
 do

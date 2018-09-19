@@ -1,6 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 
+
 #define N 8
 #define TRUE 1
 
@@ -62,6 +63,8 @@ void *wakeup_thread(void *id) {
 }
 
 int main(void) {
+    //The point is to show how race error can be raised, we create 2 threads which will simulate producer-consumer problem
+    //It is assumed that producer is 0 and consumer 1
     pthread_create(pr_cons, NULL, producer, (void *) 0);
     is_sleeping[0] = 0;
     pthread_create(pr_cons + 1, NULL, consumer, (void *) 1);
