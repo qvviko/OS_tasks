@@ -7,7 +7,8 @@
 
 void handle_sigint(int sig) {
     printf("\nCtrl+C received\n");
-    //We won't exit, use CTRL+\
+    //We won't exit, use CTRL+\\
+
 }
 
 int main(void) {
