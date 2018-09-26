@@ -14,7 +14,7 @@ int main(void) {
         //Child process
         while (TRUE) {
             printf("I am alive\n");
-            //Because otherwise it won't print for some reason
+            //Because otherwise it won't print
             fflush(stdout);
             sleep(1);
         }

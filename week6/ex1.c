@@ -12,6 +12,7 @@ int main(void) {
     char string2[MAX_STR_LEN];
     pipe(pipe_desc);
 
+    printf("String 1: %s\n", string1);
     write(pipe_desc[1], string1, (strlen(string1) + 1));
     read(pipe_desc[0], string2, sizeof(string2));
     printf("String 2: %s\n", string2);

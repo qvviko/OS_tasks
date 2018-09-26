@@ -10,7 +10,7 @@ void universal_handler(int sig) {
 }
 
 int main(void) {
-    signal(SIGINT, universal_handler);
+    signal(SIGKILL, universal_handler);
     signal(SIGSTOP, universal_handler);
     signal(SIGUSR1, universal_handler);
     while (TRUE) {
