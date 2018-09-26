@@ -12,5 +12,5 @@ out
 *.elf
 
 # Cmake
-../cmake-build-debug/
+cmake-build-debug
 CMakeLists.txt
