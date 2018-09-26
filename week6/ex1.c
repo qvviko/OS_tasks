@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
-int main(int argc, char *argv[]) {
+#define MAX_STR_LEN 100
+
+int main(void) {
     int pipe_desc[2];
-    pid_t childpid;
-    char *string1 = "String1";
-    char *string2 = "";
+    char string1[] = "String1";
+    char string2[MAX_STR_LEN];
     pipe(pipe_desc);
 
-    if ((childpid = fork()) == -1) {
-        perror("fork creation error");
-        exit(1);
-    }
+    write(pipe_desc[1], string1, (strlen(string1) + 1));
+    read(pipe_desc[0], string2, sizeof(string2));
+    printf("String 2: %s\n", string2);
 }
