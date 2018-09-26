@@ -10,3 +10,7 @@ out
 *.ko
 *.obj
 *.elf
+
+# Cmake
+../cmake-build-debug/
+CMakeLists.txt
