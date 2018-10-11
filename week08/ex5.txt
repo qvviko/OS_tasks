@@ -1,0 +1,2 @@
+Virtual address is not a address of you physical memory. The number of virtual address might be higher (PCs) or lower (big clusters) then number of physical address.
+When virtual addresses are used, you need to get to page table for the real physical address from your virtual address for the reference.
