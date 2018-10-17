@@ -2,8 +2,6 @@
 #include <stdlib.h>
 
 #define number_of_frames 10
-#define EMPTY_PAGE (frame) {0u, 0u, -1}
-#define NO_PAGE -1
 #define FALSE 0
 #define TRUE 1
 #define INITIAL_SIZE 100
@@ -16,31 +14,32 @@ typedef struct frame {
 } frame;
 
 typedef struct paging_system {
-    frame frames[number_of_frames];
+    frame **frames;
 } paging_system;
 
 int fill_page(paging_system *system, int number);
 
-int initialise(paging_system *system) {
-    system = (paging_system *) malloc(sizeof(paging_system));
+paging_system *initialise() {
+    paging_system *system = (paging_system *) malloc(sizeof(paging_system));
+    system->frames = (frame **) malloc(sizeof(frame) * number_of_frames);
     for (int i = 0; i < number_of_frames; ++i) {
-        system->frames[i] = EMPTY_PAGE;
+        system->frames[i] = NULL;
     }
-    return 0;
+    return system;
 }
 
 int get_page(paging_system *system, int number) {
     int found = FALSE;
     for (int i = 0; i < number_of_frames; ++i) {
-        frame current_frame = system->frames[i];
-        if (current_frame.number != NO_PAGE) {
-            if (current_frame.number == number) {
+        frame *current_frame = system->frames[i];
+        if (current_frame != NULL) {
+            if (current_frame->number == number) {
                 found = TRUE;
-                current_frame.referenced = 1;
-                current_frame.lifespan = (current_frame.lifespan >> 1u) + (1u << (sizeof(char) - 1));
+                current_frame->referenced = 1;
+                current_frame->lifespan = (current_frame->lifespan >> 1u) + (1u << (sizeof(char) - 1));
             } else {
-                current_frame.referenced = 0;
-                current_frame.lifespan = current_frame.lifespan >> 1u;
+                current_frame->referenced = 0;
+                current_frame->lifespan = current_frame->lifespan >> 1u;
             }
         }
     }
@@ -51,29 +50,29 @@ int get_page(paging_system *system, int number) {
 }
 
 int fill_page(paging_system *system, int number) {
-    frame lowest = system->frames[0];
+    frame *lowest = system->frames[0];
     for (int i = 0; i < number_of_frames; ++i) {
-        frame current_frame = system->frames[i];
-        if (current_frame.number == NO_PAGE) {
-            current_frame.number = number;
-            current_frame.lifespan = 1u << (sizeof(char) - 1);
-            current_frame.referenced = 1;
+        if (system->frames[i] == NULL) {
+            system->frames[i] = (frame *) malloc(sizeof(frame));
+            system->frames[i]->number = number;
+//TODO:bug
+            system->frames[i]->lifespan = 1u << (sizeof(char) - 1);
+            system->frames[i]->referenced = 1;
             return 0;
         } else {
-            if (lowest.lifespan > current_frame.lifespan) {
-                lowest = current_frame;
+            if (lowest->lifespan > system->frames[i]->lifespan) {
+                lowest = system->frames[i];
             }
         }
     }
-    lowest.number = number;
-    lowest.lifespan = 0;
-    lowest.referenced = 1;
+    lowest->number = number;
+    lowest->lifespan = 0;
+    lowest->referenced = 1;
     return 0;
 }
 
 int main(void) {
-    paging_system system;
-    initialise(&system);
+    paging_system *system = initialise();
 
     int size = INITIAL_SIZE;
     int *a = (int *) malloc(size * sizeof(int));
@@ -81,7 +80,6 @@ int main(void) {
     FILE *fp;
     int c;
     fp = fopen("Lab 09 input.txt", "r");
-    printf("%p\n", fp);
 
     while (fscanf(fp, "%d", &c) == 1) {
         a[n] = c;
@@ -94,8 +92,8 @@ int main(void) {
 
     double miss = 0;
     for (int i = 0; i < n; ++i) {
-        miss += get_page(&system, a[i]);
+        miss += get_page(system, a[i]);
     }
-    printf("%f%%\n", (n - miss / n) * 100);
+    printf("%f%%\n", ((n - miss) / n) * 100);
 
 }
