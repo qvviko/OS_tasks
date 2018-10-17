@@ -1,0 +1,5 @@
+The program will have increased hit rate if recently used page will be referenced again and again
+For example: '1 1 1 1 1 1 1 1 1' - as we access only one page every time it will miss only at the beginning and then no misses, since it
+removes pages that was not used recently.
+The hit rate will lower if we access different pages and then again and old one since it will be already removed as not used recently.
+Example '1 2 3 4 5 6 1' (if we have 5 pages)
