@@ -64,7 +64,7 @@ int fill_page(paging_system *system, int number, int number_of_frames) {
             return 0;
         } else {
             if (system->frames[lowest]->lifespan > system->frames[i]->lifespan) {
-                system->frames[lowest] = system->frames[i];
+                lowest = i;
             }
         }
     }
