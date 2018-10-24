@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-
+//Struct for counting the i-nodes
 struct numnodes {
     long unsigned int i_num;
     int count;
@@ -19,49 +19,60 @@ int main(void) {
         return 1;
     }
 
+    //Size of array of i-nodes
     int size;
-    struct numnodes *array = NULL;
+    //Array of i-nodes
+    struct numnodes *inode_array = NULL;
+
     struct dirent *dp;
+
+    //Find every file in directory
     while ((dp = readdir(dirp)) != NULL) {
         char found = 0;
-        if (array == NULL) {
-            array = malloc(sizeof(struct numnodes));
+
+        //If i-node array does not exist - create it and fill with first entry
+        if (inode_array == NULL) {
+            inode_array = malloc(sizeof(struct numnodes));
             size = 1;
-            array[0].i_num = dp->d_ino;
-            array[0].count = 1;
-            array[0].names = malloc(sizeof(char *));
-            array[0].names[0] = dp->d_name;
+            inode_array[0].i_num = dp->d_ino;
+            inode_array[0].count = 1;
+            inode_array[0].names = malloc(sizeof(char *));
+            inode_array[0].names[0] = dp->d_name;
         } else {
+            //Try to find i-node in array with the same num
             for (int i = 0; i < size && !found; ++i) {
-                if (array[i].i_num == dp->d_ino) {
+                if (inode_array[i].i_num == dp->d_ino) {
                     found = 1;
-                    array[i].count++;
-                    array[i].names = realloc(array[i].names, sizeof(char *) * array[i].count);
-
-
-                    array[i].names[array[i].count - 1] = dp->d_name;
+                    inode_array[i].count++;
+                    //Add new entry for name
+                    inode_array[i].names = realloc(inode_array[i].names, sizeof(char *) * inode_array[i].count);
+                    inode_array[i].names[inode_array[i].count - 1] = dp->d_name;
                 }
             }
+
+            //If not found - create new entry
             if (!found) {
                 size++;
-                array = realloc(array, sizeof(struct numnodes) * size);
-                array[size - 1].i_num = dp->d_ino;
-                array[size - 1].count = 1;
-                array[size - 1].names = malloc(sizeof(char *));
-                array[size - 1].names[0] = dp->d_name;
+                inode_array = realloc(inode_array, sizeof(struct numnodes) * size);
+                inode_array[size - 1].i_num = dp->d_ino;
+                inode_array[size - 1].count = 1;
+                inode_array[size - 1].names = malloc(sizeof(char *));
+                inode_array[size - 1].names[0] = dp->d_name;
             }
         }
     }
-    if (array == NULL) {
+
+    if (inode_array == NULL) {
         return 1;
     }
+
     printf("Found %d distinct i-nodes\n", size);
 
     for (int j = 0; j < size; ++j) {
-        if (array[j].count >= 2) {
-            printf("Files for i-node %lu: ", array[j].i_num);
-            for (int i = 0; i < array[j].count; ++i) {
-                printf("%s ", array[j].names[i]);
+        if (inode_array[j].count >= 2) {
+            printf("Files for i-node %lu: ", inode_array[j].i_num);
+            for (int i = 0; i < inode_array[j].count; ++i) {
+                printf("%s%s ", work_dir, inode_array[j].names[i]);
             }
             printf("\n");
         }
