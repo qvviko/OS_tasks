@@ -36,16 +36,10 @@ int main(void) {
                 if (array[i].i_num == dp->d_ino) {
                     found = 1;
                     array[i].count++;
-//                    printf("%p\n", array[i].names);
                     array[i].names = realloc(array[i].names, sizeof(char *) * array[i].count);
-//                    printf("%p\n", array[i].names);
-//                    if (array[i].names == NULL) {
-//                        return 1;
-//                    }
+
 
                     array[i].names[array[i].count - 1] = dp->d_name;
-//                    printf("count %d\n", array[i].count);
-//                    printf("count %s\n", array[i].names[1]);
                 }
             }
             if (!found) {
@@ -62,7 +56,6 @@ int main(void) {
         return 1;
     }
     printf("Found %d distinct i-nodes\n", size);
-//    printf("%c\n", array[2].names[0][0]);
 
     for (int j = 0; j < size; ++j) {
         if (array[j].count >= 2) {
