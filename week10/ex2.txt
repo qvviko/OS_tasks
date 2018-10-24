@@ -1,0 +1,5 @@
+Step 1 returns nothing
+Step 2:
+../../OS/week10/_ex2.txt
+../../OS/week01/file.txt
+Step 3 returns nothing

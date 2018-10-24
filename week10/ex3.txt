@@ -1,0 +1,18 @@
+Remove execute permission from everybody:
+chmod -x ./_ex3.txt
+Result:
+-rw-r--r-- 1 vlad vlad 0 Oct 24 16:01 ./_ex3.txt
+Grant all permissions to owner and others (not group):
+chmod 747./_ex3.txt
+(4 to preserve read permission)
+Result:
+-rwxr--rwx 1 vlad vlad 0 Oct 24 16:01 ./_ex3.txt
+
+There are 9 bits for permissions: first three for the owner, next three for the group, last three for others
+Each can be grouped together thus getting:
+o   g   a
+000 000 000
+We then specify each bit and can get this number. So for example 010 011 100 = 234 etc...
+Thus 660 means - 110 110 000. Or user and groups can read and write this file (but not execute) (others can't do anything)
+775 - 111 111 101. User and groups can read, write, execute others can only read and execute
+777 - 111 111 111. Everyone can read, write execute.
