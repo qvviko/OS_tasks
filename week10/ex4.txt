@@ -1,0 +1,2 @@
+Found 4 distinct i-nodes
+Files for i-node 13397887: file1 link1 

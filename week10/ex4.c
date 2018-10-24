@@ -13,7 +13,7 @@ struct numnodes {
 };
 
 int main(void) {
-    char *work_dir = "../../week10/tmp/";
+    char *work_dir = "./tmp/";
     DIR *dirp = opendir(work_dir);
     if (dirp == NULL) {
         return 1;
@@ -61,8 +61,9 @@ int main(void) {
         if (array[j].count >= 2) {
             printf("Files for i-node %lu: ", array[j].i_num);
             for (int i = 0; i < array[j].count; ++i) {
-                printf("%s", array[j].names[i]);
+                printf("%s ", array[j].names[i]);
             }
+            printf("\n");
         }
     }
 }
