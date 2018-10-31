@@ -1,0 +1,4 @@
+Since stdout is line buffered it will flush it's buffer only when it has encountered new line symbol, it is full or program has finished.
+When you fork a process, child receives an unflushed stdout buffer from it's parent.
+Thus in the second program because of there is a new line symbol the buffer is flushed before fork and it prints hello only once.
+In first program there is no new line symbol so the buffer is copied to the child after fork and prints hello twice.
