@@ -14,4 +14,5 @@ int main(void) {
         printf("%c", hello[i]);
         sleep(1);
     }
+    printf("\n");
 }

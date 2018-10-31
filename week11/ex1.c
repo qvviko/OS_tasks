@@ -9,7 +9,7 @@
 
 
 int main(void) {
-    char *path = "/home/vlad/Projects/OS/week11/ex1.txt";
+    char *path = "./ex1.txt";
     char *to_print = "This is a nice day";
     size_t str_len = strlen(to_print);
     int file = open(path, O_RDWR);

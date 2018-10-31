@@ -8,8 +8,8 @@
 #include <sys/types.h>
 
 int main(void) {
-    char *path_src = "/home/vlad/Projects/OS/week11/ex1.txt";
-    char *path_dest = "/home/vlad/Projects/OS/week11/ex1.memcpy.txt";
+    char *path_src = "./ex1.txt";
+    char *path_dest = "./ex1.memcpy.txt";
 
     int source = open(path_src, O_RDWR);
     if (source < 0) {
