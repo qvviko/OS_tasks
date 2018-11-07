@@ -1,30 +1,13 @@
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.01s system 76% cpu 0.007 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.01s system 88% cpu 0.008 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.00s system 82% cpu 0.006 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.00s system 88% cpu 0.007 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.01s system 85% cpu 0.009 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.00s system 79% cpu 0.005 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.00s user 0.00s system 88% cpu 0.007 total
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.01s user 0.00s system 81% cpu 0.006 total
-➜  week12 git:(master) ✗ chmod +w ./copy.c
-➜  week12 git:(master) ✗ gcc ./copy.c -o ./copy.c
-gcc: fatal error: input file ‘./copy.c’ is the same as output file
-compilation terminated.
-➜  week12 git:(master) ✗ gcc ./copy.c -o ./copy
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.07s user 0.71s system 99% cpu 0.790 total
-➜  week12 git:(master) ✗ gcc ./copy.c -o ./copy
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-^C
-./copy file.txt file2.txt  0.01s user 0.26s system 0% cpu 1:02.98 total
-➜  week12 git:(master) ✗ gcc ./copy.c -o ./copy
-➜  week12 git:(master) ✗ time ./copy file.txt file2.txt
-./copy file.txt file2.txt  0.01s user 0.02s system 0% cpu 4.350 total
+If we tweak copy.c buffer we can see that time required to copy changes.
+If we increase buffer the time will to copy will decrease and vice versa, by decreasing the buffer size the time to copy will increase.
+
+If we add O_SYNC then our I/O will become synchronous and thus increasing copy time drastically since we need to wait till I/O finishes.
+If we tweak buffer size with O_SYNC on we can see that the time will act the same as when O_SYNC was off, though the time it takes
+to copy will increase to greater values then before.
+
+When changing the buffer the number of syscalls required to copy a file decrease/increase depending if we increase/decrease buffer
+size respectively. Since the syscalls have high cost, decreasing their number will increase our performance (what we have seen
+when changing buffer size)
+
+When changing O_SYNC flag we make read/write synchronous therefore after each syscall
+we will wait until the information has been written for file, thus drastically increasing execution time (what we have seen)
