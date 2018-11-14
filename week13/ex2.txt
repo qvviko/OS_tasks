@@ -1,0 +1,13 @@
+To begin with, the strategy of avoidance of deadlock has pretty interseting solution via
+the banker's algorithms but is actually not implementable as we cannot know in advance which resources will be needed
+(halting problem), but if we try to stop reaching the unsafe spot we actually reduce the resources our system has and can possibly use
+as we will never give the full potential in fear of the deadlock.
+
+The recovery strategy can work everytime, though it must find a deadlock first. This requires a process running in a background and constantly checking
+if everything is fine (which can eat some of the cpu time), which can be bad for the system which not only requires a good performance, but don't
+need to wait until deadlock will be found and handled (which can be crucial for the real-time system i.e. show something immediately after it appears, but it deadlocked)
+Even the recoveries sometimes cannot be done (recovery by preemtion is not available for every resource) or dangerous (recovery by killing a process when we try to 
+use a database it may corrupt the data if run again).
+
+Finally, when we try to prevent the deadlock by attacking "hold and wait" it can lead to low resource utilization as in avoidance so that we will not
+use our system to it's full potential. It is also enables a possibility of starvation.
